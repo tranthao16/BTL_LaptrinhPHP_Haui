@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa Danh mục Sản phẩm</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 70%;
+            margin: 0 auto;
+            overflow: hidden;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 50px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #000;
+        }
+        .message {
+            text-align: center;
+            color: green;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .error {
+            text-align: center;
+            color: red;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="submit"] {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .btn_quaylai {
+            color: #007bff;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .btn_quaylai:hover {
+            text-decoration: underline;
+        }
+        .btn-back {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .btn-back:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <?php include "../Admin_dashboard/Header_Sidebar.php"?>
+    <div class="container">
+        <h1>Sửa danh mục bài viết</h1>
+        <?php
+        include '../../conn_db.php';
+        include 'Category_data.php';
+
+        $id = $_GET['id'];
+        $result = getCategoryById($id);
+
+        if (isset($_GET['success']) && $_GET['success'] == 1) {
+            echo "<div class='message'>Bạn đã cập nhật thông tin thành công</div>";
+        } elseif (isset($_GET['error']) && $_GET['error'] == 1) {
+            echo "<div class='error'>Cập nhật thất bại. Vui lòng thử lại.</div>";
+        }
+
+        if (!empty($result)) {
+            $row = $result[0];
+            echo "<form action='Category_business.php' method='POST'>
+            <input type='hidden' name='action' value='edit'>
+            <input type='hidden' name='id' value='".$row['id']."'>
+            <label for='name'>Tên danh mục:</label>
+            <input type='text' id='name' name='name' value='".$row['name']."' required>
+            <label for='status'>Trạng thái:</label>
+            <div style='display: flex; align-items: center;'>
+                <input type='radio' id='status1' name='status' value='1' ".($row['status'] == '1' ? 'checked' : '')." required>
+                <label for='status1' style='margin-right: 100px;'>Đang hiển thị</label>
+                <input type='radio' id='status0' name='status' value='0' ".($row['status'] == '0' ? 'checked' : '')." required>
+                <label for='status0'>Bị ẩn</label>
+            </div>
+            <br>
+            <input type='submit' value='Cập nhật'>
+            <a class='btn_quaylai' href='Category_page.php'>Quay lại</a>
+            </form>";
+
+
+        } else {
+            echo "Không tìm thấy danh mục. <a href='Category_page.php'>Quay lại</a>";
+        }
+        ?>
+    </div>
+    <?php include "../Admin_dashboard/Footer.php"?>
+</body>
+</html>

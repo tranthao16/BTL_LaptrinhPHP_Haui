@@ -1,0 +1,18 @@
+=====Tài khoản thanh toán VNPAY=====
+Ngân hàng	NCB
+Số thẻ	9704198526191432198
+Tên chủ thẻ	NGUYEN VAN A
+Ngày phát hành	07/15
+Mật khẩu OTP	123456
+
+====Tài khoảng đăng nhập==========
+1. linh - linh1234
+2. linhphan - linhhaui123
+
+====Tài khoản Admin=============
+admin - admin123
+
+
+====Mail đổi mật khẩu=====
+phanthuylinhL2@gmail.com
+=> Tài khoảng có mail này: linhkey - linh1710
